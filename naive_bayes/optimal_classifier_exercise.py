@@ -48,18 +48,21 @@ def LaterWords(sample, word, distance):
     p_w1_w = dict(zip(word_frequency.keys(), probabilities))
     sorted_p = sorted(p_w1_w.items(), key=operator.itemgetter(1), reverse=True)
     d1_wd = zip(*sorted_p)[0][0]
+    p_d1_wd = p_w1_w[d1_wd]
 
     # TODO: Repeat the above process--for each distance beyond 1, evaluate the words that
     # might come after each word, and combine them weighting by relative probability
     # into an estimate of what might appear next.
-    for i in range(0, distance):
-        print(i)
+    for i in xrange(1, distance):
         word_frequency2 = NextWordProbability(sample, d1_wd)
         probabilities2 = [v / float(word_count) for v in word_frequency2.values()]
         p_w2_w1 = dict(zip(word_frequency2.keys(), probabilities2))
-        p_w2_w1andw = dict(zip(p_w2_w1.keys(), [p_w1_w[d1_wd] * p_w2_w1[w] for w in p_w2_w1.keys()]))
+        p_w2_w1andw = dict(zip(p_w2_w1.keys(), [p_d1_wd * p_w2_w1[w] for w in p_w2_w1.keys()]))
         sorted_p2 = sorted(p_w2_w1andw.items(), key=operator.itemgetter(1), reverse=True)
-        return zip(*sorted_p2)[0][0]
+        d1_wd = zip(*sorted_p2)[0][0]
+        print(d1_wd)
+        p_d1_wd = p_w2_w1andw[d1_wd]
+    return d1_wd
 
 
 

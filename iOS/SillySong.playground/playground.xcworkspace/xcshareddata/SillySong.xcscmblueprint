@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "0CC00450DCE57ACEE675D999D8E9DB0811DA34DE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "5DC1581B0E44DBE4D0F3C7BC9D24BE7B6E2B2C54" : 9223372036854775807,
+    "0CC00450DCE57ACEE675D999D8E9DB0811DA34DE" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "17B90E4F-8846-40AB-9D4C-EE20E343ABB7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "5DC1581B0E44DBE4D0F3C7BC9D24BE7B6E2B2C54" : "",
+    "0CC00450DCE57ACEE675D999D8E9DB0811DA34DE" : "Udacity\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SillySong",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iOS\/SillySong.playground",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/skim925\/udacity.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0CC00450DCE57ACEE675D999D8E9DB0811DA34DE"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/skim925\/titanic_survival_exploration.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5DC1581B0E44DBE4D0F3C7BC9D24BE7B6E2B2C54"
+    }
+  ]
+}

@@ -30,7 +30,9 @@ class LearningAgent(Agent):
 
         # Select the destination as the new location to route to
         self.planner.route_to(destination)
-
+        # variables for Gompertz function
+        b = -1
+        c = -1
         # Update epsilon using a decay function of your choice
         # Update additional class parameters as needed
         # If 'testing' is True, set epsilon and alpha to 0
@@ -39,16 +41,9 @@ class LearningAgent(Agent):
             self.alpha = 0.0
         else:
             # commented out testing parameters
-            # self.epsilon = self.epsilon - 0.05
             self.trial += 1.0
-            # self.epsilon = 1.0/(self.trial**2)
-            # self.epsilon = 1.0/(self.trial**2 + self.alpha*self.trial)
-            # self.epsilon = 1.0/(self.trial**2 - self.alpha*self.trial)
-            # self.epsilon = math.fabs(math.cos(self.alpha*self.trial))
-            # self.epsilon = math.fabs(math.cos(self.alpha*self.trial))/(self.trial**2)
-            # self.epsilon = 1.0/(self.trial**2)
-            self.epsilon = math.fabs(math.cos(self.alpha*self.trial))
-
+            # self.epsilon = self.epsilon - 0.05
+            self.epsilon = math.exp(-self.alpha * self.trial)
         return None
 
     def build_state(self):
@@ -73,7 +68,7 @@ class LearningAgent(Agent):
             else:
                 return str(s)
 
-        # state size = 4 * 2 * 4 * 4
+        # state size = 3 * 2 * 4 * 4
         state = strfy(waypoint) + "_" + inputs['light'] + "_" + strfy(inputs['left']) + "_" +  strfy(inputs['oncoming'])
         return state
 
@@ -84,10 +79,7 @@ class LearningAgent(Agent):
 
         # Calculate the maximum Q-value of all actions for a given state
         # preset an initialization value that should be replaced by a more valid Q value in the loop.
-        maxQ = -1000.0
-        for action in self.Q[state]:
-            if maxQ < self.Q[state][action]:
-                maxQ = self.Q[state][action]
+        maxQ = max([qval for (action, qval) in self.Q[state].items()])
         return maxQ
 
 
@@ -98,7 +90,8 @@ class LearningAgent(Agent):
         # If it is not, create a new dictionary for that state
         #   Then, for each action available, set the initial Q-value to 0.0
         if self.learning:
-            self.Q[state] = self.Q.get(state, {None:0.0, 'forward':0.0, 'left':0.0, 'right':0.0})
+            if state not in self.Q.keys():
+                self.Q[state] = {None:0.0, 'forward':0.0, 'left':0.0, 'right':0.0}
         return
 
 
@@ -133,8 +126,7 @@ class LearningAgent(Agent):
         # When learning, implement the value iteration update rule
         #   Use only the learning rate 'alpha' (do not use the discount factor 'gamma')
         if self.learning:
-            self.Q[state][action] = self.Q[state][action] + self.alpha*(reward-self.Q[state][action])
-
+            self.Q[state][action] = (1 - self.alpha) *  self.Q[state][action] + self.alpha * reward
         return
 
 
@@ -170,7 +162,8 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-    agent = env.create_agent(LearningAgent, learning=True, epsilon=0.1, alpha=0.5)
+    agent = env.create_agent(LearningAgent, learning=True, alpha=0.01)
+    # agent = env.create_agent(LearningAgent, learning=True)
 
     ##############
     # Follow the driving agent
